@@ -1,4 +1,6 @@
-# Raptor Colors
+![npm](https://img.shields.io/npm/v/raptor-colors?style=plastic)
+
+# Raptor Colors 🐡
 
 > A TypeScript library for adding IRC-style colors to text strings.
 
