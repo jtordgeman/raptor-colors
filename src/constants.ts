@@ -16,5 +16,3 @@ export const ColorCodes = {
     grey: '14',
     lightGrey: '15',
 } as const;
-
-export const DEFAULT_BG = '01'; // default background color (black)
