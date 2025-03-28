@@ -65,4 +65,4 @@ c.withBackground(bgColor: ColorName).[color](text: string)
 
 ## License
 
-ISC 
+MIT 
