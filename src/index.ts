@@ -6,7 +6,19 @@ type ColorFunctions = {
     [K in ColorName]: (text: string) => string;
 };
 
+/**
+ * Interface to provide type definitions for the dynamically generated color methods.
+ */
+interface Colors extends ColorFunctions {}
+
 class Colors {
+    constructor() {
+        // Dynamically create methods for each color in ColorCodes
+        (Object.keys(ColorCodes) as ColorName[]).forEach((color) => {
+            (this as any)[color] = (text: string) => this.formatColor(text, color);
+        });
+    }
+
     private formatColor(text: string, color: ColorName, bgColor?: ColorName): string {
         const colorCode = ColorCodes[color];
         if (bgColor) {
@@ -16,75 +28,16 @@ class Colors {
         return `\x03${colorCode}${text}\x03`;
     }
 
-    white(text: string): string {
-        return this.formatColor(text, 'white');
-    }
-    black(text: string): string {
-        return this.formatColor(text, 'black');
-    }
-    blue(text: string): string {
-        return this.formatColor(text, 'blue');
-    }
-    green(text: string): string {
-        return this.formatColor(text, 'green');
-    }
-    red(text: string): string {
-        return this.formatColor(text, 'red');
-    }
-    brown(text: string): string {
-        return this.formatColor(text, 'brown');
-    }
-    purple(text: string): string {
-        return this.formatColor(text, 'purple');
-    }
-    orange(text: string): string {
-        return this.formatColor(text, 'orange');
-    }
-    yellow(text: string): string {
-        return this.formatColor(text, 'yellow');
-    }
-    lightGreen(text: string): string {
-        return this.formatColor(text, 'lightGreen');
-    }
-    cyan(text: string): string {
-        return this.formatColor(text, 'cyan');
-    }
-    lightCyan(text: string): string {
-        return this.formatColor(text, 'lightCyan');
-    }
-    lightBlue(text: string): string {
-        return this.formatColor(text, 'lightBlue');
-    }
-    pink(text: string): string {
-        return this.formatColor(text, 'pink');
-    }
-    grey(text: string): string {
-        return this.formatColor(text, 'grey');
-    }
-    lightGrey(text: string): string {
-        return this.formatColor(text, 'lightGrey');
-    }
-
-    // Allow custom background colors
+    /**
+     * Returns an object containing color functions that apply the specified background color.
+     * @param bgColor The background color to apply.
+     */
     withBackground(bgColor: ColorName): ColorFunctions {
-        return {
-            white: (text: string): string => this.formatColor(text, 'white', bgColor),
-            black: (text: string): string => this.formatColor(text, 'black', bgColor),
-            blue: (text: string): string => this.formatColor(text, 'blue', bgColor),
-            green: (text: string): string => this.formatColor(text, 'green', bgColor),
-            red: (text: string): string => this.formatColor(text, 'red', bgColor),
-            brown: (text: string): string => this.formatColor(text, 'brown', bgColor),
-            purple: (text: string): string => this.formatColor(text, 'purple', bgColor),
-            orange: (text: string): string => this.formatColor(text, 'orange', bgColor),
-            yellow: (text: string): string => this.formatColor(text, 'yellow', bgColor),
-            lightGreen: (text: string): string => this.formatColor(text, 'lightGreen', bgColor),
-            cyan: (text: string): string => this.formatColor(text, 'cyan', bgColor),
-            lightCyan: (text: string): string => this.formatColor(text, 'lightCyan', bgColor),
-            lightBlue: (text: string): string => this.formatColor(text, 'lightBlue', bgColor),
-            pink: (text: string): string => this.formatColor(text, 'pink', bgColor),
-            grey: (text: string): string => this.formatColor(text, 'grey', bgColor),
-            lightGrey: (text: string): string => this.formatColor(text, 'lightGrey', bgColor),
-        };
+        const bgFuncs = {} as ColorFunctions;
+        (Object.keys(ColorCodes) as ColorName[]).forEach((color) => {
+            bgFuncs[color] = (text: string) => this.formatColor(text, color, bgColor);
+        });
+        return bgFuncs;
     }
 }
 
