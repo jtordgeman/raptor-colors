@@ -13,7 +13,10 @@ interface Colors extends ColorFunctions {}
 
 class Colors {
     constructor() {
-        // Dynamically create methods for each color in ColorCodes
+        // Dynamically create methods for each color in ColorCodes.
+        // `this as any` is required because TypeScript cannot verify that dynamically
+        // assigned properties satisfy the merged ColorFunctions interface at compile time.
+        // The interface declaration merge above provides the correct public types.
         (Object.keys(ColorCodes) as ColorName[]).forEach((color) => {
             (this as any)[color] = (text: string) => this.formatColor(text, color);
         });

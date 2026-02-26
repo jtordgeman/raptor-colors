@@ -87,8 +87,7 @@ describe('Raptor Colors', () => {
         Object.keys(ColorCodes).forEach((color) => {
             it(`should format text with ${color} color`, () => {
                 const colorCode = ColorCodes[color as keyof typeof ColorCodes];
-                // @ts-ignore - Dynamic access to color methods
-                const result = c[color]('test');
+                const result = (c as unknown as Record<string, (t: string) => string>)[color]('test');
                 expect(result).toBe(`\x03${colorCode}test\x03`);
             });
         });
