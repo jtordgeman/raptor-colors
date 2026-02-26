@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import c from '../src/index';
 import { ColorCodes } from '../src/constants';
 
