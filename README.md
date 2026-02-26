@@ -1,6 +1,6 @@
 ![npm](https://img.shields.io/npm/v/raptor-colors?style=plastic)
 
-# Raptor Colors 🐡
+# Raptor Colors 🌈
 
 > A TypeScript library for adding IRC-style colors to text strings.
 
@@ -49,19 +49,21 @@ console.log(rc.withBackground('white').red('Red text on white background'));
 
 ### Basic Color Methods
 
-Each color is available as a direct method:
+All 16 colors listed above are available as direct methods:
 ```typescript
-c.red(text: string): string
-c.blue(text: string): string
-// ... etc for all colors
+rc.red('This text is red')
+rc.blue('This text is blue')
+// ... all colors follow the same pattern
 ```
 
 ### Custom Background Colors
 
-Use the `withBackground` method to set a custom background color:
+Use `withBackground` to combine a foreground and background color:
 ```typescript
-c.withBackground(bgColor: ColorName).[color](text: string)
+rc.withBackground('black').yellow('Yellow text on black background')
 ```
+
+The `bgColor` parameter accepts any value from the Available Colors list (`ColorName` type).
 
 ## License
 
