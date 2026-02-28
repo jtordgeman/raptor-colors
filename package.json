@@ -4,6 +4,19 @@
     "description": "A TypeScript library for IRC-style text coloring",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            }
+        }
+    },
     "repository": {
         "type": "git",
         "url": "git+ssh://git@github.com/jtordgeman/raptor-colors.git"
@@ -12,7 +25,7 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsc",
+        "build": "tsup",
         "prepare": "yarn build",
         "test": "vitest run",
         "test:watch": "vitest",
@@ -31,11 +44,15 @@
     ],
     "author": "fsjohnny",
     "license": "MIT",
+    "engines": {
+        "node": ">=20"
+    },
     "homepage": "https://github.com/jtordgeman/raptor-colors",
     "devDependencies": {
         "@biomejs/biome": "^1.9.4",
         "@types/node": "^22.13.10",
         "husky": "^9.1.7",
+        "tsup": "^8.5.1",
         "typescript": "^5.8.2",
         "vitest": "^3.0.0"
     },
